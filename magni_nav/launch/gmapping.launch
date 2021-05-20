@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
+    
+      <remap from="scan" to="scan_multi"/>
+      <rosparam>
+      odom_frame: odom
+      base_frame: base_link
+      map_frame: map
+
+      map_update_interval: 0.5 # Publish new map 0.1
+
+      maxUrange: 5.5 # Should be just less than sensor range
+      maxRange: 6.1 # Should be just greater than sensor range
+      particles: 80 # Increased from 80 #50
+
+      # Update frequencies
+      linearUpdate: 0.3
+      angularUpdate: 0.5
+      temporalUpdate: 2.0
+      resampleThreshold: 0.5
+
+      # Initial Map Size
+      xmin: -100.0
+      ymin: -100.0
+      xmax: 100.0
+      ymax: 100.0
+      delta: 0.05
+
+      # All default
+      sigma: 0.05 # 0.05
+      kernelSize: 1
+      lstep: 0.05
+      astep: 0.05
+      iterations: 5
+      lsigma: 0.075 //0.075
+      ogain: 3.0
+      lskip: 0
+      llsamplerange: 0.01
+      llsamplestep: 0.01
+      lasamplerange: 0.005
+      lasamplestep: 0.005
+      
+      #Modified
+      srr: 0.4  #Translation error in translation 
+      str: 0.5  #Translation error in rotation 
+      linearUpdate: 0.05 #0.2
+      angularUpdate: 0.0.5 #0.2
+
+    </rosparam>
+  </node>
+</launch>

@@ -1,0 +1,19 @@
+<launch>
+    <arg name="raspicam_mount" default="forward"/>
+    <arg name="sonars_installed" default="false"/>
+    <arg name="lidar_installed" default="false"/>
+    <arg name="camera_extrinsics_file" default="-"/>
+    <arg name="velodyne_installed" default="true"/>
+    <arg name="kinect_installed" default="true"/>
+
+    <include file="$(find magni_description)/launch/description.launch">
+        <arg name="raspicam_mount" value="$(arg raspicam_mount)" />
+        <arg name="sonars_installed" value="$(arg sonars_installed)" />
+	<arg name="lidar_installed" value="$(arg lidar_installed)" />
+	<arg name="velodyne_installed" value="$(arg velodyne_installed)" />
+	<arg name="kinect_installed" value="$(arg kinect_installed)" />
+
+    </include>>
+  <node pkg="rviz" type="rviz" name="$(anon rviz)"
+        args="-d $(find magni_viz)/rviz/view_robot.rviz"/>
+</launch>

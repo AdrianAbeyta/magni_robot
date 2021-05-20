@@ -1,0 +1,22 @@
+<launch>
+ 
+<node pkg="magni_ws" name="negative_obstacle_detection" type="negative_obstacle_detection" output="screen">
+</node>
+      
+
+ <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+        	<param name="destination_frame" value="cart_frame"/>
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan_multi"/>
+                <param name="laserscan_topics" value ="/camera_scan /velodyne_scan" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+
+                <param name="angle_min" value="-3.14"/>
+                <param name="angle_max" value="3.14"/>
+                <param name="angle_increment" value="0.008722"/>
+                <param name="scan_time" value="0.00"/>
+                <param name="range_min" value="0.0"/>
+                <param name="range_max" value="100.0"/>
+ </node>
+	
+
+</launch>
