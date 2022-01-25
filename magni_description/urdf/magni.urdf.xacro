@@ -4,7 +4,7 @@
   <xacro:arg name="raspicam_mount" default="forward"/>
   <xacro:property name="raspicam_mount" value="$(arg raspicam_mount)"/>
 
-  <xacro:arg name="sonars_installed" default="true"/>
+  <xacro:arg name="sonars_installed" default="false"/>
   <xacro:property name="sonars_installed" value="$(arg sonars_installed)"/>
 
   <xacro:arg name="camera_extrinsics_file" default="-"/>
@@ -13,10 +13,10 @@
   <xacro:arg name="lidar_installed" default="false"/>
   <xacro:property name="lidar_installed" value="$(arg lidar_installed)"/>
 
-  <xacro:arg name="velodyne_installed" default="false"/>
+  <xacro:arg name="velodyne_installed" default="true"/>
   <xacro:property name="velodyne_installed" value="$(arg velodyne_installed)"/>
 
-  <xacro:arg name="kinect_installed" default="true"/>
+  <xacro:arg name="kinect_installed" default="false"/>
   <xacro:property name="kinect_installed" value="$(arg kinect_installed)"/>
 
 
@@ -30,9 +30,9 @@
   <xacro:include filename="$(find magni_description)/urdf/sensors/sonar_hc-sr04.xacro" />
   <xacro:include filename="$(find magni_description)/urdf/sensors/raspi_camera.xacro" />
   <xacro:include filename="$(find magni_description)/urdf/sensors/hokuyo_lidar.xacro" />
-  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
-  <xacro:include filename="$(find realsense2_description)/urdf/_d435.gazebo.xacro" />
-  <xacro:include filename="$(find turtlebot_description)/urdf/sensors/kinect.urdf.xacro" />
+  <!-- <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" /> -->
+  <!-- <xacro:include filename="$(find realsense2_description)/urdf/_d435.gazebo.xacro" /> -->
+  <!-- <xacro:include filename="$(find turtlebot_description)/urdf/sensors/kinect.urdf.xacro" /> -->
 
   <!-- Robot base_link -->
   <link name="base_link">
@@ -89,6 +89,37 @@
     <parent link="base_footprint"/>
     <child link="base_link"/>
     <origin xyz="0 0 ${wheel_r}" rpy="0 0 0"/>
+  </joint>
+
+
+  <!-- Place the batteries in the robot -->
+  <xacro:property name = "batt_width"  value = "${5.14*0.0254}"/>
+  <xacro:property name = "batt_length" value = "${7.72*0.0254}"/>
+  <xacro:property name = "batt_height" value = "${6.22*0.0254}"/>
+  <xacro:property name = "batt_mass"   value = "22.45"/>
+
+  <link name = "batteries">
+    <inertial name = "batteries_inertial">
+      <mass value = "${batt_mass}"/>
+      <inertia ixx = "${1/12.*batt_mass*(batt_length**2 + batt_height**2)}"
+               iyy = "${1/12.*batt_mass*(batt_width**2  + batt_height**2)}"
+               izz = "${1/12.*batt_mass*(batt_length**2 + batt_width**2)}"
+               ixy = "0" ixz = "0" iyz = "0"/>
+      <origin xyz = "0 0 ${batt_height/2}"/>
+    </inertial>
+  
+    <!-- <visual name = "batteries_visual">
+      <origin xyz = "0 0 ${batt_height/2}"/>
+      <geometry>
+        <box size = "${2*batt_width} ${batt_length} ${batt_height}"/>
+      </geometry>
+    </visual> -->
+  </link>
+
+  <joint name = "battery_to_base_footprint" type = "fixed">
+    <parent link = "base_link"/>
+    <child  link = "batteries"/>
+    <origin  xyz = "-0.15 0 0"/>
   </joint>
 
   <!-- Macro for defining wheels -->
@@ -208,16 +239,16 @@
       </xacro:raspi_camera>
     </xacro:if>
   </xacro:if>
- <xacro:if value="${lidar_installed}">
+ <!-- <xacro:if value="${lidar_installed}">
     <xacro:hokuyo_lidar name="laser" connected_to="base_link">
       <origin xyz="0 0.0 0.2" rpy="0 0 0"/>
     </xacro:hokuyo_lidar>
-  </xacro:if>
-<xacro:if value="${kinect_installed}">
+  </xacro:if> -->
+<!-- <xacro:if value="${kinect_installed}">
     <xacro:sensor_d435  parent="base_link">
       <origin xyz="0.095 0.061 0.1" rpy="0 0 0"/>
     </xacro:sensor_d435>
-  </xacro:if>
+  </xacro:if> -->
  <xacro:if value="${velodyne_installed}">
 	<xacro:VLP-16 name="velodyne">
       <origin xyz="0 0.0 0.3" rpy="0 0 0"/>
