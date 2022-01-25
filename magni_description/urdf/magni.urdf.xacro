@@ -107,13 +107,6 @@
                ixy = "0" ixz = "0" iyz = "0"/>
       <origin xyz = "0 0 ${batt_height/2}"/>
     </inertial>
-  
-    <!-- <visual name = "batteries_visual">
-      <origin xyz = "0 0 ${batt_height/2}"/>
-      <geometry>
-        <box size = "${2*batt_width} ${batt_length} ${batt_height}"/>
-      </geometry>
-    </visual> -->
   </link>
 
   <joint name = "battery_to_base_footprint" type = "fixed">
@@ -239,16 +232,16 @@
       </xacro:raspi_camera>
     </xacro:if>
   </xacro:if>
- <!-- <xacro:if value="${lidar_installed}">
+ <xacro:if value="${lidar_installed}">
     <xacro:hokuyo_lidar name="laser" connected_to="base_link">
       <origin xyz="0 0.0 0.2" rpy="0 0 0"/>
     </xacro:hokuyo_lidar>
-  </xacro:if> -->
-<!-- <xacro:if value="${kinect_installed}">
+  </xacro:if>
+<xacro:if value="${kinect_installed}">
     <xacro:sensor_d435  parent="base_link">
       <origin xyz="0.095 0.061 0.1" rpy="0 0 0"/>
     </xacro:sensor_d435>
-  </xacro:if> -->
+  </xacro:if>
  <xacro:if value="${velodyne_installed}">
 	<xacro:VLP-16 name="velodyne">
       <origin xyz="0 0.0 0.3" rpy="0 0 0"/>
