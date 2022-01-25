@@ -1,8 +1,8 @@
 <launch>
 
     <arg name="raspicam_mount" default="forward"/>
-    <arg name="sonars_installed" default="true"/>
-    <arg name="lidar_installed" default="true"/>
+    <arg name="sonars_installed" default="false"/>
+    <arg name="lidar_installed" default="false"/>
 
     <arg name="rviz_config" default="true" />
 

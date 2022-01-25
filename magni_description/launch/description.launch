@@ -4,7 +4,7 @@
   <arg name="lidar_installed" default="false"/>
   <arg name="camera_extrinsics_file" default="-"/>
   <arg name="velodyne_installed" default="true"/>
-  <arg name="kinect_installed" default="true"/>
+  <arg name="kinect_installed" default="false"/>
 
   <param name="robot_description" 
       command="$(find xacro)/xacro --inorder
@@ -16,7 +16,7 @@
 	kinect_installed:=$(arg kinect_installed)
         camera_extrinsics_file:=$(arg camera_extrinsics_file)"
   />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
   	<remap from="base_link" to="base_footprint" />
         <remap from="laser" to="velodyne" />
   
