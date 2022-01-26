@@ -99,20 +99,15 @@
   <xacro:property name = "batt_mass"   value = "22.45"/>
 
   <link name = "batteries">
-    <inertial name = "batteries_inertial">
-      <mass value = "${batt_mass}"/>
-      <inertia ixx = "${1/12.*batt_mass*(batt_length**2 + batt_height**2)}"
-               iyy = "${1/12.*batt_mass*(batt_width**2  + batt_height**2)}"
-               izz = "${1/12.*batt_mass*(batt_length**2 + batt_width**2)}"
-               ixy = "0" ixz = "0" iyz = "0"/>
-      <origin xyz = "0 0 ${batt_height/2}"/>
-    </inertial>
+    <xacro:box_inertial_with_origin x="${2*batt_width}" y="${batt_length}" z="${batt_height}" mass="${batt_mass}">
+      <origin xyz = "0 0 0" rpy = "0 0 0"/>
+    </xacro:box_inertial_with_origin>
   </link>
 
-  <joint name = "battery_to_base_footprint" type = "fixed">
+  <joint name = "battery_to_base_link" type = "continuous">
     <parent link = "base_link"/>
     <child  link = "batteries"/>
-    <origin  xyz = "-0.15 0 0"/>
+    <origin  xyz = "-0.15 0 ${batt_height/2}"/>
   </joint>
 
   <!-- Macro for defining wheels -->
@@ -124,21 +119,25 @@
           <mesh filename="package://magni_description/meshes/front_wheel.dae" />
         </geometry>
       </visual>
+
       <collision>
         <origin xyz="0 0 0" rpy="0 ${pi/2} 0" />
         <geometry>
           <cylinder radius="${wheel_r}" length="0.05"/>
         </geometry>
       </collision>
+
       <collision>
         <origin xyz="${0.033*reflect} 0 0" rpy="0 ${pi/2} 0" />
         <geometry>
           <cylinder radius="0.064" length="0.016"/>
         </geometry>
       </collision>
+
       <xacro:cylinder_inertial_with_origin radius="${wheel_r}" length="0.05" mass="3.34">
         <origin xyz="0 0 0" rpy="0 ${pi/2} 0" />
       </xacro:cylinder_inertial_with_origin>
+
     </link>
     <joint name="${prefix}_wheel_joint" type="continuous">
       <axis xyz="1 0 0" rpy="0 0 0" />
