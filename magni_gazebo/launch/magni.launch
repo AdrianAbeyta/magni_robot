@@ -6,6 +6,9 @@
     <arg name="lidar_installed" default="false"/>
     <arg name="velodyne_installed" default="true"/>
     <arg name="kinect_installed" default="false"/>
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0"/>
 
     <include file="$(find magni_description)/launch/description.launch" pass_all_args="true">
         
@@ -16,7 +19,7 @@
         <arg name="velodyne_installed" value="$(arg velodyne_installed)"/>
     </include>>
 
-    <node name="magni_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model magni" />
+    <node name="magni_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model magni -x $(arg x) -y $(arg y) -z $(arg z)" />
 
     
    <!-- Load the parameters used by the following nodes -->
