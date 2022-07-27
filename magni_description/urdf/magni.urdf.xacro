@@ -108,7 +108,7 @@
     </xacro:box_inertial_with_origin>
   </link>
 
-  <joint name = "battery_to_base_link" type = "continuous">
+  <joint name = "battery_to_base_link" type = "fixed">
     <parent link = "base_link"/>
     <child  link = "batteries"/>
     <origin  xyz = "-0.15 0 ${batt_height/2}"/>
@@ -160,7 +160,7 @@
   <xacro:macro name="caster_wheel" params="prefix reflect">
     <link name="${prefix}_caster_wheel">
       <collision>
-        <origin xyz="${-wheel_xpos-0.19} ${reflect*0.169} ${-wheel_r+0.04}" rpy="0 0 0" />
+        <origin xyz="${-wheel_xpos-0.19} ${reflect*0.169} ${-wheel_r+0.0435}" rpy="0 0 0" />
         <geometry>
           <sphere radius="0.04"/>
         </geometry>
