@@ -260,7 +260,7 @@
   </xacro:if>
 
   <xacro:if value="${velodyne_installed}">
-    <xacro:VLP-16 name="velodyne" gpu="true" min_range="0.1">
+    <xacro:VLP-16 name="velodyne" gpu="true" min_range="0.10" collision_range="0.07">
         <origin xyz="0 0.0 0.3" rpy="0 0 0"/>
     </xacro:VLP-16>
   </xacro:if>
