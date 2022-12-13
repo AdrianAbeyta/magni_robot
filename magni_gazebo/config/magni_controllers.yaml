@@ -13,7 +13,7 @@ ubiquity_velocity_controller:
 
   cmd_vel_timeout: 0.25
   enable_odom_tf: true
-  base_frame_id: base_footprint
+  base_frame_id: base_link
 
   # Velocity and acceleration limits
   # Whenever a min_* is unspecified, default to -max_*
