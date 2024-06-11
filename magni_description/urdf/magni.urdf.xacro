@@ -31,6 +31,9 @@
   <xacro:include filename="$(find magni_description)/urdf/sensors/raspi_camera.xacro" />
   <xacro:include filename="$(find magni_description)/urdf/sensors/hokuyo_lidar.xacro" />
 
+  <!-- First link -->
+  <link name="base_footprint"/>
+
   <!-- Robot base_link -->
   <link name="base_link">
     <visual>
@@ -88,11 +91,10 @@
   </link>
 
   <!-- Fixed offset from the floor to the center of the wheels -->
-  <link name="base_footprint"/>
   <joint name="base_footprint_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="base_footprint"/>
-    <origin xyz="0 0 ${-wheel_r}" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 ${wheel_r}" rpy="0 0 0"/>
   </joint>
 
 
