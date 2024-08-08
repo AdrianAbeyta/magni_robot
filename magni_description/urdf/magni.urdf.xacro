@@ -30,6 +30,7 @@
   <xacro:include filename="$(find magni_description)/urdf/sensors/sonar_hc-sr04.xacro" />
   <xacro:include filename="$(find magni_description)/urdf/sensors/raspi_camera.xacro" />
   <xacro:include filename="$(find magni_description)/urdf/sensors/hokuyo_lidar.xacro" />
+  <xacro:include filename="$(find magni_description)/urdf/magni.ros2_control.xacro" />
 
   <!-- First link -->
   <link name="base_footprint"/>
@@ -266,6 +267,8 @@
         <origin xyz="0 0.0 0.3" rpy="0 0 0"/>
     </xacro:VLP-16>
   </xacro:if>
+
+  <xacro:magni_ros2_control name="magni" prefix=""/>
 
 </robot>
 
